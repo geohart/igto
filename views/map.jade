@@ -1,0 +1,157 @@
+extends layout
+
+block content
+  script(src="https://maps.googleapis.com/maps/api/js?key=&sensor=true", type="text/javascript")
+  script(src="/javascripts/jquery.ui.map.full.min.js")
+  script(src="/javascripts/plot.js")
+  script(type="text/javascript")
+    $(function() {
+      // setup map
+      $('#map_canvas').gmap({'zoom': 2});
+      
+      // setup share preference forms
+      $('.share').hide();
+      if ('#{sessionCode}' == '#{me.code}'){
+        if (#{me.update} == 1){
+          $('#momSharing').show();
+        }else{
+          $('#momStopped').show();
+        }
+        if(#{them.update} == 1){
+          $('#' + '#{them.code}' + '_sharing').show();
+        }else{
+          $('#' + '#{them.code}' + '_stopped').show();
+        }
+      } else if ('#{sessionCode}' == '#{them.code}'){
+        if (#{me.update} == 1){
+          $('#' + '#{me.code}' + '_sharing').show();
+        }else{
+          $('#' + '#{me.code}' + '_stopped').show();
+        }
+        if(#{them.update} == 1){
+          $('#totSharing').show();
+        }else{
+          $('#totStopped').show();
+        }
+      }
+      
+      // setup map updating and marker plotting
+      updateMarkers('#{find._id}', '#{sessionCode}');
+      setInterval("updateMarkers('#{find._id}', '#{sessionCode}')", 60000);
+      
+      // add change event handler to refresh map checkbox
+      $('#remap').change(function(){
+        updateMarkers('#{find._id}', '#{sessionCode}');
+      });
+      
+    });
+  script(type="text/javascript")
+    function setSharing(share, them) {
+      // if sharing, get current position
+      if(share == 1){
+        updatePosition();
+      }
+      
+      // ajax post to database
+      $.post('/setShare', {id: '#{find._id}', code: '#{sessionCode}', share: share}, function(data) {
+        // show/hide forms
+        if (them == 0){
+          if(share == 0){
+            $('#momSharing').hide();
+            $('#momStopped').show();
+          }else{
+            $('#momStopped').hide();
+            $('#momSharing').show();
+          }
+        }else{
+          if(share == 0){
+            $('#totSharing').hide();
+            $('#totStopped').show();
+          }else{
+            $('#totStopped').hide();
+            $('#totSharing').show();
+          }
+        }
+        
+        // update map
+        updateMarkers('#{find._id}', '#{sessionCode}');
+      });
+    }
+  h1= title
+  div
+    if sessionCode == me.code
+      div
+        h3 You are sharing your location with #{themName}:
+    else
+      div
+        h3 #{meName} is sharing his/her location with you:
+    div(id="map_canvas", style="height: 300px; position: relative; background-color: rgb(229, 227, 223); overflow: hidden;")
+    div
+      p
+        input(type="checkbox", id="remap", checked)
+        |  Auto-move map to fit markers
+    div(id="mePerspective")
+      div(id="meOnMe")
+        div(id="momSharing", style="display:none", class="share")
+          div
+            img(src="/images/markers/marker1_50.png")
+          div
+            p You are sharing your location with #{themName}
+          div
+            p
+              form(action="javascript:setSharing(0, 0);")
+                input(type="submit", value="Stop Sharing")
+        div(id="momStopped", style="display:none", class="share")
+          div
+            img(src="/images/markers/marker1_50_fade.png")
+          div
+            p #{themName} can't see your location
+          div
+            p
+              form(action="javascript:setSharing(1, 0);")
+                input(type="submit", value="Share Now")
+      div(id="meOnThem")
+        div(id="#{them.code}_sharing", class="share")
+          div
+            img(src="/images/markers/marker2_50.png")
+          div
+            p Andrew is sharing his/her location with you
+        div(id="#{them.code}_stopped", class="share")
+          div
+            img(src="/images/markers/marker2_50_fade.png")
+          div
+            p Andrew isn't sharing his/her location
+    div(id="themPerspective")
+      div(id="themOnMe")
+        div(id="#{me.code}_stopped", class="share")
+          div
+            img(src="/images/markers/marker1_50_fade.png")
+          div
+            p George isn't sharing his/her location
+        div(id="#{me.code}_sharing", class="share")
+          div
+            img(src="/images/markers/marker1_50.png")
+          div
+            p George is sharing his/her location with you
+    div(id="themOnThem")
+      div(id="totSharing", style="display:none", class="share")
+        div
+          img(src="/images/markers/marker2_50.png")
+        div
+          p You are sharing your location with George
+        div
+          p
+            form(action="javascript:setSharing(0, 1);")
+              input(type="submit", value="Stop Sharing")
+      div(id="totStopped", style="display:none", class="share")
+        div
+          img(src="/images/markers/marker2_50_fade.png")
+        div
+          p George can't see your location
+        div
+          p
+            form(action="javascript:setSharing(1, 1);")
+              input(type="submit", value="Share Now")
+    div
+      p Hint: Improve accuracy by turning on your device's GPS
+

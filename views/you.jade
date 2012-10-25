@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  script(type="text/javascript")
+    $(function(){
+      $('#youInfo').submit(function() {
+
+        // check if required fields are complete
+        var contact = $('#youContact').val();
+        
+        if(!contact){
+          // alert user
+          $('#alert').show();
+          $('.required').addClass('error');
+          return false;
+        }
+      });
+    });
+  h1= title
+  p Tell your friend who you are:
+  p(class='note') We will only share your info with the person you share your location with
+  div(id='alert', style="display:none")
+    p(class='text-error') You must complete all required fields:
+  form(id='youInfo', action='/setyou', method='POST')
+    div(id='name', class='control-group')
+      p
+        label(for='name') Your Name: <span class='note'>(recommended)</span>
+        input(type='text', id='youName', name='name', placeholder='Name')
+    div(id='contact', class='control-group required')  
+      p
+        label(for='contact') Your Contact Info: <span class='note'>(required)</span>
+        input(type='text', id='youContact', name='contact', placeholder='Email or phone number')
+        input(type='hidden', id='mode', name='mode', value='#{mode}')
+    div(id='submit', class='control-group') 
+      p
+        input(type='submit', id='youSubmit', value='Next')

@@ -1,0 +1,21 @@
+/*body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}*/
+
+.note{
+  margin-top:-10px;
+  font-size:10px;
+  font-style:italic;
+  color:#666;
+}
+
+span.note{
+  font-style:italic;
+  color: #999;
+  font-size:14px;
+}

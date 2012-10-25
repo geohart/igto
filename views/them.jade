@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  script(type="text/javascript")
+    $(function(){
+      $('#themInfo').submit(function() {
+
+        // check if required fields are complete
+        var contact = $('#themContact').val();
+        
+        if(!contact){
+          // alert user
+          $('#alert').show();
+          $('.required').addClass('error');
+          return false;
+        }
+      });
+    });
+  h1= title
+  p Who do you want to share your location with?
+  div(id='alert', style="display:none")
+    p(class='text-error') You must complete all required fields:
+  form(id='themInfo', action='/setThem', method='POST')
+    div(id='name', class='control-group')
+      p
+        label(for="name") Their Name: <span class='note'>(recommended)</span>
+        input(type="text", name="name", id='themName', placeholder="Name")
+    div(id='contact', class='control-group required')
+      p
+        label(for="contact") Their Contact Info: <span class='note'>(required)</span>
+        input(type="text", name="contact", id='themContact', placeholder="Email or phone number")
+    div(id='message', class='control-group')
+      p
+        label(for="message") Include a Message: <span class='note'>(recommended)</span>
+        textarea(name="message", id='meMessage', placeholder="Include a message with your invite...")
+    div(id='self', class='control-group')
+      p
+        input(type="checkbox", name="self", id='meSelf', checked) 
+        |  Send me an email/text with a link to our shared map
+    div(id='submit', class='control-group')
+      p
+        input(type="submit", value="View Map")
