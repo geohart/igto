@@ -17,7 +17,10 @@ block content
       });
     });
   h1= title
-  p Who do you want to share your location with?
+  if mode == 0
+    p Who do you want to share your location with?
+  else
+    p Whose location do you want to see?
   div(id='alert', style="display:none")
     p(class='text-error') You must complete all required fields:
   form(id='themInfo', action='/setThem', method='POST')
@@ -30,9 +33,13 @@ block content
         label(for="contact") Their Contact Info: <span class='note'>(required)</span>
         input(type="text", name="contact", id='themContact', placeholder="Email or phone number")
     div(id='message', class='control-group')
+     
       p
         label(for="message") Include a Message: <span class='note'>(recommended)</span>
-        textarea(name="message", id='meMessage', placeholder="Include a message with your invite...")
+        if mode == 0
+          textarea(name="message", id='meMessage', placeholder="Include a message with your invite...")
+        else
+          textarea(name="message", id='meMessage', placeholder="Include a message with your request...")
     div(id='self', class='control-group')
       p
         input(type="checkbox", name="self", id='meSelf', checked) 

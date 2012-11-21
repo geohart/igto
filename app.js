@@ -13,7 +13,7 @@ var express = require('express')
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 2001);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -35,7 +35,7 @@ app.get('/'         , routes.index  );
 app.get('/options'  , routes.options);
 app.get('/you/:mode', routes.you    );
 app.get('/them'     , routes.them   );
-app.get('/share'     , routes.share  );
+app.get('/share'    , routes.share  );
 app.get('/map/:id'  , routes.map    );
 
 // setup paths to functions

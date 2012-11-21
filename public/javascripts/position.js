@@ -2,7 +2,7 @@
 $(document).ready(function() {	
 	
 	updatePosition();
-	setInterval("updatePosition()", 60000);
+	setInterval("updatePosition()", 10000);
 	
 });
 

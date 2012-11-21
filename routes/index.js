@@ -1,7 +1,8 @@
-var func = require('./functions');
-var util = require('util');
-var model = require('./model');
+var func   = require('./functions');
+var util   = require('util');
+var model  = require('./model');
 var invite = require('./invite');
+var secret = require('./secret');
 
 
 /* GET check permission to update position */
@@ -196,6 +197,8 @@ exports.map = function(req, res){
                             , meName : meName
                             , themName : themName
                             , sessionCode : req.session.user.code
+                            , mode : find.mode
+                            , apikey : secret.google_api_key
         });
       });
     });

@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost/igto');
 var FindSchema = new Schema({
 	  meName        :  String
 	, meContact     :  String
-	, mode          :  String
+	, mode          :  Number
 	, created       :  Number
 	, modified      :  Number
 	, completed     :  Number

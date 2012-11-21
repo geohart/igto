@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  script(src="https://maps.googleapis.com/maps/api/js?key=&sensor=true", type="text/javascript")
+  script(src="https://maps.googleapis.com/maps/api/js?key=#{apikey}&sensor=true", type="text/javascript")
   script(src="/javascripts/jquery.ui.map.full.min.js")
   script(src="/javascripts/plot.js")
   script(type="text/javascript")
@@ -81,10 +81,16 @@ block content
   div
     if sessionCode == me.code
       div
-        h3 You are sharing your location with #{themName}:
+        if mode == 0
+          h3 You are sharing your location with #{themName}:
+        else
+          h3 You requested #{themName}'s location:
     else
       div
-        h3 #{meName} is sharing his/her location with you:
+        if mode == 0
+          h3 #{meName} is sharing his/her location with you:
+        else
+          h3 #{meName} wants to know your location:
     div(id="map_canvas", style="height: 300px; position: relative; background-color: rgb(229, 227, 223); overflow: hidden;")
     div
       p
@@ -115,30 +121,30 @@ block content
           div
             img(src="/images/markers/marker2_50.png")
           div
-            p Andrew is sharing his/her location with you
+            p #{themName} is sharing his/her location with you
         div(id="#{them.code}_stopped", class="share")
           div
             img(src="/images/markers/marker2_50_fade.png")
           div
-            p Andrew isn't sharing his/her location
+            p #{themName} isn't sharing his/her location
     div(id="themPerspective")
       div(id="themOnMe")
         div(id="#{me.code}_stopped", class="share")
           div
             img(src="/images/markers/marker1_50_fade.png")
           div
-            p George isn't sharing his/her location
+            p #{meName} isn't sharing his/her location
         div(id="#{me.code}_sharing", class="share")
           div
             img(src="/images/markers/marker1_50.png")
           div
-            p George is sharing his/her location with you
+            p #{meName} is sharing his/her location with you
     div(id="themOnThem")
       div(id="totSharing", style="display:none", class="share")
         div
           img(src="/images/markers/marker2_50.png")
         div
-          p You are sharing your location with George
+          p You are sharing your location with #{meName}
         div
           p
             form(action="javascript:setSharing(0, 1);")
@@ -147,11 +153,10 @@ block content
         div
           img(src="/images/markers/marker2_50_fade.png")
         div
-          p George can't see your location
+          p #{meName} can't see your location
         div
           p
             form(action="javascript:setSharing(1, 1);")
               input(type="submit", value="Share Now")
     div
-      p Hint: Improve accuracy by turning on your device's GPS
-
+      p Tip: Improve accuracy by turning on your device's GPS
