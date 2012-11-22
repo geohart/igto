@@ -16,7 +16,6 @@ app.configure(function(){
   app.set('port', process.env.PORT || 2001);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
-  app.set('path', 'localhost:' + app.get('port'));
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -30,6 +29,8 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
+exports.path = 'http://localhost:' + app.get('port');
 
 // setup paths to views
 app.get('/'         , routes.index  );

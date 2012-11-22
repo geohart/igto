@@ -3,6 +3,8 @@ var util = require('util');
 var model = require('./model');
 var nodemailer = require('nodemailer');
 var secret = require('./secret');
+var app = require('../app');
+
 
 // MAIL Configuration ------------------------------------------------------
 
@@ -140,7 +142,7 @@ function emailInvite(find, me, them, self){
       themBody = 'Hi there!\r\n\r\n' + me.contact;
     }
     themBody = themBody + ' shared his/her current location with you:\r\n\r\n\"' + find.message + '\"\r\n\r\n';
-    themBody = themBody + 'Click below to view on a map: \r\n\r\nhttp://' + app.get(path) + '/share?id=' + find._id + '&code=' + them.code + '\r\n\r\n';
+    themBody = themBody + 'Click below to view on a map: \r\n\r\n' + app.path + '/share?id=' + find._id + '&code=' + them.code + '\r\n\r\n';
     themBody = themBody + 'Thanks,\r\n\r\nIsGoing.to Team\r\n\r\n-------------------------\r\n\r\n';
     themBody = themBody + 'Meeting up with someone? IsGoing.to makes it easy! Learn more here: www.isgoing.to/about.\r\n\r\n© 2012 Sidelime LLC | www.sidelime.com';
   
@@ -154,7 +156,7 @@ function emailInvite(find, me, them, self){
       themBody = 'Hi there!\r\n\r\n' + me.contact;
     }
     themBody = themBody + ' wants to know your current location:\r\n\r\n\"' + find.message + '\"\r\n\r\n';
-    themBody = themBody + 'Click below to view ' + meHandle + '\'s location on a map. You can then decide whether you want to share your location.\r\n\r\nhttp://' + app.get(path) + '/share?id=' + find._id + '&code=' + them.code + '\r\n\r\n';
+    themBody = themBody + 'Click below to view ' + meHandle + '\'s location on a map. You can then decide whether you want to share your location.\r\n\r\n' + app.path + '/share?id=' + find._id + '&code=' + them.code + '\r\n\r\n';
     themBody = themBody + 'Thanks,\r\n\r\nIsGoing.to Team\r\n\r\n-------------------------\r\n\r\n';
     themBody = themBody + 'Meeting up with someone? IsGoing.to makes it easy! Learn more here: www.isgoing.to/about.\r\n\r\n© 2012 Sidelime LLC | www.sidelime.com';
   
@@ -185,7 +187,7 @@ function emailInvite(find, me, them, self){
         meSubject = 'You shared your location with ' + them.contact;
         meBody = meBody + 'Hi there!\r\n\r\nYou shared your location with ' + them.contact + '.\r\n\r\n';
       }
-      meBody = meBody + 'Click below to view: \r\n\r\nhttp://' + app.get(path) + '/share?id=' + find._id + '&code=' + me.code + '\r\n\r\n';
+      meBody = meBody + 'Click below to view: \r\n\r\n' + app.path + '/share?id=' + find._id + '&code=' + me.code + '\r\n\r\n';
       meBody = meBody + 'Thanks,\r\n\r\nIsGoing.to Team\r\n\r\n-------------------------\r\n\r\n';
       meBody = meBody + 'Meeting up with someone? IsGoing.to makes it easy! Learn more here: www.isgoing.to/about.\r\n\r\n© 2012 Sidelime LLC | www.sidelime.com';
       
@@ -212,7 +214,7 @@ function emailInvite(find, me, them, self){
       meSubject = 'You requested ' + them.contact + '\'s location';
       meBody = meBody + 'Hi there!\r\n\r\nYou asked ' + them.contact + ' to share his/her location with you.\r\n\r\n';
     }
-    meBody = meBody + 'Click below to view: \r\n\r\nhttp://' + app.get(path) + '/share?id=' + find._id + '&code=' + me.code + '\r\n\r\n';
+    meBody = meBody + 'Click below to view: \r\n\r\n' + app.path + '/share?id=' + find._id + '&code=' + me.code + '\r\n\r\n';
     meBody = meBody + 'Thanks,\r\n\r\nIsGoing.to Team\r\n\r\n-------------------------\r\n\r\n';
     meBody = meBody + 'Meeting up with someone? IsGoing.to makes it easy! Learn more here: www.isgoing.to/about.\r\n\r\n© 2012 Sidelime LLC | www.sidelime.com';
       
