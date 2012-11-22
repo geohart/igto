@@ -92,71 +92,71 @@ block content
         else
           h3 #{meName} wants to know your location:
     div(id="map_canvas", style="height: 300px; position: relative; background-color: rgb(229, 227, 223); overflow: hidden;")
-    div
-      p
+    div(id='automove')
+      p(class='muted')
         input(type="checkbox", id="remap", checked)
         |  Auto-move map to fit markers
     div(id="mePerspective")
       div(id="meOnMe")
-        div(id="momSharing", style="display:none", class="share")
-          div
-            img(src="/images/markers/marker1_50.png")
-          div
-            p You are sharing your location with #{themName}
-          div
+        div(id="momSharing", style="display:none", class="share row")
+          div(class='span1')
+            img(class='mapicon', src="/images/markers/marker1_50.png")
+          div(class='span4 details')
+            p(class='lead') You are sharing your location with #{themName}
+          div(class='span4')
             p
               form(action="javascript:setSharing(0, 0);")
-                input(type="submit", value="Stop Sharing")
-        div(id="momStopped", style="display:none", class="share")
-          div
-            img(src="/images/markers/marker1_50_fade.png")
-          div
-            p #{themName} can't see your location
-          div
+                input(class='btn btn-danger btn-large', type="submit", value="Stop Sharing")
+        div(id="momStopped", style="display:none", class="share row")
+          div(class='span1')
+            img(class='mapicon', src="/images/markers/marker1_50_fade.png")
+          div(class='span4 details')
+            p(class='lead') #{themName} can't see your location
+          div(class='span4')
             p
               form(action="javascript:setSharing(1, 0);")
-                input(type="submit", value="Share Now")
+                input(class='btn btn-success btn-large', type="submit", value="Share Now")
       div(id="meOnThem")
-        div(id="#{them.code}_sharing", class="share")
-          div
-            img(src="/images/markers/marker2_50.png")
-          div
-            p #{themName} is sharing his/her location with you
-        div(id="#{them.code}_stopped", class="share")
-          div
-            img(src="/images/markers/marker2_50_fade.png")
-          div
-            p #{themName} isn't sharing his/her location
+        div(id="#{them.code}_sharing", class="share row")
+          div(class='span1')
+            img(class='mapicon', src="/images/markers/marker2_50.png")
+          div(class='span4 details')
+            p(class='lead') #{themName} is sharing his/her location with you
+        div(id="#{them.code}_stopped", class="share row")
+          div(class='span1')
+            img(class='mapicon', src="/images/markers/marker2_50_fade.png")
+          div(class='span4 details')
+            p(class='lead') #{themName} isn't sharing his/her location
     div(id="themPerspective")
       div(id="themOnMe")
-        div(id="#{me.code}_stopped", class="share")
-          div
-            img(src="/images/markers/marker1_50_fade.png")
-          div
-            p #{meName} isn't sharing his/her location
-        div(id="#{me.code}_sharing", class="share")
-          div
-            img(src="/images/markers/marker1_50.png")
-          div
-            p #{meName} is sharing his/her location with you
+        div(id="#{me.code}_stopped", class="share row")
+          div(class='span1')
+            img(class='mapicon', src="/images/markers/marker1_50_fade.png")
+          div(class='span4 details')
+            p(class='lead') #{meName} isn't sharing his/her location
+        div(id="#{me.code}_sharing", class="share row")
+          div(class='span1')
+            img(class='mapicon', src="/images/markers/marker1_50.png")
+          div(class='span4 details')
+            p(class='lead') #{meName} is sharing his/her location with you
     div(id="themOnThem")
-      div(id="totSharing", style="display:none", class="share")
-        div
-          img(src="/images/markers/marker2_50.png")
-        div
-          p You are sharing your location with #{meName}
-        div
+      div(id="totSharing", style="display:none", class="share row")
+        div(class='span1')
+          img(class='mapicon', src="/images/markers/marker2_50.png")
+        div(class='span4 details')
+          p(class='lead') You are sharing your location with #{meName}
+        div(class='span4')
           p
             form(action="javascript:setSharing(0, 1);")
-              input(type="submit", value="Stop Sharing")
-      div(id="totStopped", style="display:none", class="share")
-        div
-          img(src="/images/markers/marker2_50_fade.png")
-        div
-          p #{meName} can't see your location
-        div
+              input(class='btn btn-danger btn-large', type="submit", value="Stop Sharing")
+      div(id="totStopped", style="display:none", class="share row")
+        div(class='span1')
+          img(class='mapicon', src="/images/markers/marker2_50_fade.png")
+        div(class='span4 details')
+          p(class='lead') #{meName} can't see your location
+        div(class='span4')
           p
             form(action="javascript:setSharing(1, 1);")
-              input(type="submit", value="Share Now")
+              input(class='btn btn-success btn-large', type="submit", value="Share Now")
     div
-      p Tip: Improve accuracy by turning on your device's GPS
+      p(class='text-info') Tip: Improve accuracy by turning on your device's GPS
